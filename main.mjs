@@ -103,20 +103,23 @@ const GAME_API = "https://spacescavanger.onrender.com/";
     console.log("Task 4 Result: ", answerResult4);
 
     //Task 5 --------------------------------------
-    if (jupiter.satellites && jupiter.satellites.length > 0) {
+    if (jupiter.moons && jupiter.moons.length > 0) {
         let largestMoon = null;
         let largestMoonRadius = 0;
 
-        jupiter.satellites.forEach(moon => {
-            if (moon.meanRadius && moon.meanRadius > largestMoonRadius) {
-                largestMoonRadius = moon.meanRadius;
-                largestMoon = moon;
+        for(const moon of jupiter.moons) {
+            const moonRespons = await fetch(moon.rel);
+            const moonData = await moonRespons.json();
+
+            if (moonData.meanRadius && moonData.meanRadius > largestMoonRadius) {
+                largestMoonRadius = moonData.meanRadius;
+                largestMoon = moonData;
             }
-        });
+        }
 
         if (largestMoon) {
             console.log("Jupiter's largest moon: ", largestMoon.moon, "with the radius", largestMoonRadius, "km");
-            const answer5 = largestMoon.moon;
+            const answer5 = largestMoon.englishName;
     const answerFeedback5 = await fetch(`${GAME_API}answer`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
