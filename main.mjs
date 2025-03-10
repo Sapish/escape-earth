@@ -101,5 +101,34 @@ const GAME_API = "https://spacescavanger.onrender.com/";
     });
     const answerResult4 = await answerFeedback4.json();
     console.log("Task 4 Result: ", answerResult4);
+
+    //Task 5 --------------------------------------
+    if (jupiter.satellites && jupiter.satellites.length > 0) {
+        let largestMoon = null;
+        let largestMoonRadius = 0;
+
+        jupiter.satellites.forEach(moon => {
+            if (moon.meanRadius && moon.meanRadius > largestMoonRadius) {
+                largestMoonRadius = moon.meanRadius;
+                largestMoon = moon;
+            }
+        });
+
+        if (largestMoon) {
+            console.log("Jupiter's largest moon: ", largestMoon.moon, "with the radius", largestMoonRadius, "km");
+            const answer5 = largestMoon.moon;
+    const answerFeedback5 = await fetch(`${GAME_API}answer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: answer5, player: playerId })
+    });
+    const answerResult5 = await answerFeedback5.json();
+    console.log("Task 5 Result: ", answerResult5);
+        }else {
+            console.log("No moons found at jupiter");
+        }
+    }else {
+        console.log("Jupiter has no moons");
+    }
 })();
 
