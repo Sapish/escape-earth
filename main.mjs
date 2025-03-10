@@ -133,5 +133,25 @@ const GAME_API = "https://spacescavanger.onrender.com/";
     }else {
         console.log("Jupiter has no moons");
     }
+
+    //Task 6 --------------------------------------
+    
+    
+    const pluto = planets.find(planet => planet.englishName === "Pluto");
+    if (pluto) {
+        const plutoClassification = plutoData.bodyType;
+        console.log("Pluto's Classification: ", plutoClassification);
+
+        const answer6 = plutoClassification;
+        const answerFeedback6 = await fetch(`${GAME_API}answer`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ answer: answer6, player: playerId })
+        });
+        const answerResult6 = await answerFeedback6.json();
+        console.log("Task 6 Result: ", answerResult6);
+    }else {
+        console.log("pluto not found in API");
+    }
 })();
 
