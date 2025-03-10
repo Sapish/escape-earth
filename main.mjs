@@ -136,9 +136,11 @@ const GAME_API = "https://spacescavanger.onrender.com/";
 
     //Task 6 --------------------------------------
     
-    
-    const pluto = planets.find(planet => planet.englishName === "Pluto");
-    if (pluto) {
+    const plutoUrl = `${SOLAIRE_API}bodies/pluto`;
+    const plutoResponse = await fetch(plutoUrl);
+    const plutoData = await plutoResponse.json();
+
+    if (plutoData) {
         const plutoClassification = plutoData.bodyType;
         console.log("Pluto's Classification: ", plutoClassification);
 
