@@ -62,5 +62,31 @@ const GAME_API = "https://spacescavanger.onrender.com/";
     });
     const answerResult2 = await answerFeedback2.json();
     console.log("Task 2 Result: ", answerResult2);
+
+    //Task 3 --------------------------------------
+    let shortestDayPlanet = null;
+    let shortestDay = Infinity;
+
+    planets.forEach(planet => {
+        if (planet.sideralRotation && planet.sideralRotation > 0) {
+            const rotationPeriod = planet.sideralRotation;
+            if (rotationPeriod < shortestDay) {
+                shortestDay = rotationPeriod;
+                shortestDayPlanet = planet;
+            }
+        }
+    });
+
+    console.log("Planet with shortest day: ", shortestDayPlanet.englishName, "with", shortestDay, "hours");
+
+    const answer3 = shortestDayPlanet.englishName;
+    const answerFeedback3 = await fetch(`${GAME_API}answer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: answer3, player: playerId })
+    });
+    const answerResult3 = await answerFeedback3.json();
+    console.log("Task 3 Result: ", answerResult3);
+
 })();
 
