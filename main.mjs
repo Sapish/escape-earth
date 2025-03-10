@@ -88,5 +88,18 @@ const GAME_API = "https://spacescavanger.onrender.com/";
     const answerResult3 = await answerFeedback3.json();
     console.log("Task 3 Result: ", answerResult3);
 
+    //Task 4 --------------------------------------
+    const jupiter = planets.find(planet => planet.englishName === "Jupiter");
+    const numberOfMoons = jupiter.moons ? jupiter.moons.length : 0;
+    console.log("Number of moons - Jupiter: ", numberOfMoons);
+
+    const answer4 = numberOfMoons;
+    const answerFeedback4 = await fetch(`${GAME_API}answer`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ answer: answer4, player: playerId })
+    });
+    const answerResult4 = await answerFeedback4.json();
+    console.log("Task 4 Result: ", answerResult4);
 })();
 
